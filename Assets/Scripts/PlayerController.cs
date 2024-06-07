@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckPoint;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
+    private bool canDoubleJump;
+
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +41,30 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            if(isGrounded == true)
+            if (isGrounded == true)
             {
-                theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                //theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                Jump();
+                canDoubleJump = true;
+            } else
+            {
+                if(canDoubleJump == true)
+                {
+                    //theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                    Jump();
+                    canDoubleJump = false;
+                }
             }
         }
+
+        // handle animation
+        anim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("ySpeed", theRB.velocity.y);
+    }
+
+    void Jump()
+    {
+        theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
     }
 }
