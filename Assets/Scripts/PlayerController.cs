@@ -7,6 +7,13 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public Rigidbody2D theRB;
     public float jumpForce;
+    public float runSpeed;
+    private float activeSpeed;
+
+    private bool isGrounded;
+    public Transform groundCheckPoint;
+    public float groundCheckRadius;
+    public LayerMask whatIsGround;
 
     // Start is called before the first frame update
     void Start()
@@ -17,11 +24,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
+        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
 
-        if(Input.GetButtonDown("Jump"))
+        // theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
+
+        activeSpeed = moveSpeed;
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+            activeSpeed = runSpeed;
+        }
+
+        theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * activeSpeed, theRB.velocity.y);
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if(isGrounded == true)
+            {
+                theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+            }
         }
     }
 }
