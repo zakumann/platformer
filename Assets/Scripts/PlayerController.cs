@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask whatIsGround;
     private bool canDoubleJump;
+    private bool isJumping;
 
     public Animator anim;
 
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
         // theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
 
         activeSpeed = moveSpeed;
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             activeSpeed = runSpeed;
         }
@@ -46,21 +47,33 @@ public class PlayerController : MonoBehaviour
                 //theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
                 Jump();
                 canDoubleJump = true;
+                isJumping = false;
             } else
             {
-                if(canDoubleJump == true)
+                if (canDoubleJump == true)
                 {
                     //theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
                     Jump();
                     canDoubleJump = false;
+                    isJumping = true;
                 }
             }
+        }
+
+        if (theRB.velocity.x > 0)
+        {
+            transform.localScale = Vector3.one;
+        }
+        if(theRB.velocity.x <0)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
         // handle animation
         anim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("ySpeed", theRB.velocity.y);
+        anim.SetBool("isJumping", isJumping);
     }
 
     void Jump()

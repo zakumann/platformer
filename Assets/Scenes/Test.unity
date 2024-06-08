@@ -367,7 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   theRB: {fileID: 116053511}
-  jumpForce: 22
+  jumpForce: 15
   runSpeed: 12
   groundCheckPoint: {fileID: 393090795}
   groundCheckRadius: 0.2
