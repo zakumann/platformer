@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
 
     public bool clampPosition;
     public Transform clampMin, clampMax;
+    private float halfWidth, halfHeight;
+    public Camera theCam;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,9 @@ public class CameraController : MonoBehaviour
 
         clampMin.SetParent(null);
         clampMax.SetParent(null);
+
+        halfHeight = theCam.orthographicSize;
+        halfWidth = theCam.orthographicSize * theCam.aspect;
     }
 
     // Update is called once per frame
@@ -38,9 +43,23 @@ public class CameraController : MonoBehaviour
         if(clampPosition == true)
         {
             transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x, clampMin.position.x, clampMax.position.x),
-                Mathf.Clamp(transform.position.y, clampMin.position.y, clampMax.position.y),
+                Mathf.Clamp(transform.position.x, clampMin.position.x + halfWidth, clampMax.position.x - halfWidth),
+                Mathf.Clamp(transform.position.y, clampMin.position.y + halfHeight, clampMax.position.y - halfHeight),
                 transform.position.z);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(clampPosition == true)
+        {
+            Gizmos.color = Color.cyan;
+
+            Gizmos.DrawLine(clampMin.position, new Vector3(clampMin.position.x, clampMax.position.y, 0f));
+            Gizmos.DrawLine(clampMin.position, new Vector3(clampMax.position.x, clampMin.position.y, 0f));
+
+            Gizmos.DrawLine(clampMax.position, new Vector3(clampMin.position.x, clampMax.position.y, 0f));
+            Gizmos.DrawLine(clampMax.position, new Vector3(clampMax.position.x, clampMin.position.y, 0f));
         }
     }
 }
