@@ -6570,6 +6570,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   anim: {fileID: 116053516}
+  knockbackLength: 0.5
+  knockbackSpeed: 5
 --- !u!95 &116053516
 Animator:
   serializedVersion: 5
@@ -6657,6 +6659,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 5
+  invincibilityLength: 1
+  theSR: {fileID: 116053517}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  fadeColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0.8666667}
 --- !u!1 &284983598
 GameObject:
   m_ObjectHideFlags: 0
@@ -7447,8 +7453,8 @@ Canvas:
   m_GameObject: {fileID: 835423099}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -7505,6 +7511,8 @@ MonoBehaviour:
   - {fileID: 1160183621}
   - {fileID: 442139506}
   - {fileID: 676333366}
+  heartFull: {fileID: 8109154662235370213, guid: 990cbe8893c036041b2190664485e2e2, type: 3}
+  heartEmpty: {fileID: -4390673095631447188, guid: 990cbe8893c036041b2190664485e2e2, type: 3}
 --- !u!1 &840549909
 GameObject:
   m_ObjectHideFlags: 0

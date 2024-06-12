@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
 {
+    public static ParallaxBackground instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private Transform theCam;
 
     public Transform sky, treeline;
@@ -18,6 +25,16 @@ public class ParallaxBackground : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        /*sky.position = new Vector3(theCam.position.x, theCam.position.y, sky.position.z);
+
+        treeline.position = new Vector3(
+            theCam.position.x * parallaxSpeed,
+            theCam.position.y,
+            treeline.position.z);*/
+    }
+
+    public void MoveBackground()
     {
         sky.position = new Vector3(theCam.position.x, theCam.position.y, sky.position.z);
 
