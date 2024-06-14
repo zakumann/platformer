@@ -68,7 +68,9 @@ public class PlayerHealthController : MonoBehaviour
             {
                 currentHealth = 0;
 
-                gameObject.SetActive(false);
+                // gameObject.SetActive(false);
+
+                LifeController.instance.Respawn();
             }else
             {
                 invincibilityCounter = invincibilityLength;

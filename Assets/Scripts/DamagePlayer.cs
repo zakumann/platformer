@@ -30,6 +30,5 @@ public class DamagePlayer : MonoBehaviour
 
             PlayerHealthController.instance.DamagePlayer();
         }
-        
     }
 }

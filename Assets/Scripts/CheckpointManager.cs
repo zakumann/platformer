@@ -7,6 +7,7 @@ public class CheckpointManager : MonoBehaviour
     public Checkpoint[] allCP;
 
     private Checkpoint activeCP;
+    public Vector3 respawnPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,8 @@ public class CheckpointManager : MonoBehaviour
         {
             cp.cpMan = this;
         }
+
+        respawnPosition = FindFirstObjectByType<PlayerController>().transform.position;
     }
 
     // Update is called once per frame
@@ -42,5 +45,6 @@ public class CheckpointManager : MonoBehaviour
 
         activeCP = newActiveCP;
 
+        respawnPosition = newActiveCP.transform.position;
     }
 }
